@@ -4,9 +4,11 @@ import scripts.crawler as crawl
 """
 	This Script tries to serve as an Autosetup for DataScience
 	- gnu-sed because OSX sed is just wrong
+	- Analytical Software: R, Octave
+	- Python Libraries: sklearn, pandas, matplotlib,...
 	- local databases: postgres, sqlite, mysql
 	- programming languages: ruby
-	- other utilities: osquery
+	- other utilities: sublime, osquery
 """ 
 
 def install_packages(packages, cmd):
@@ -54,7 +56,7 @@ os.system(foldersCmd)
 homebrew = """/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" """
 os.system(homebrew)
 
-#Going through the conf file
+#Scraping and Installing DMG files
 dmg_packages = read_conf("configs/dmg_packages.conf")
 install_dmg_packages(dmg_packages)
 
@@ -63,10 +65,22 @@ brew_packages = read_conf("configs/brew_packages.conf")
 brew_cmd = "brew install {package} --upgrade"
 install_packages(brew_packages, brew_cmd)
 
+#Brew Cask
+cask_packages = read_conf("configs/cask_packages.conf")
+cask_cmd = "brew cask install {package}"
+install_packages(cask_packages, cask_cmd)
+
 #Pip Data Science install
 pip_packages = read_conf("configs/pip_packages.conf")
 pip_cmd = "pip install {package} --upgrade"
 install_packages(pip_packages, pip_cmd)
 
+#add R dependencies?
+
 #things I want set up
 #Bashrc, vimrc
+
+"""
+TO be added
+R CMD javareconf JAVA_CPPFLAGS=-I/System/Library/Frameworks/JavaVM.framework/Headers
+"""
